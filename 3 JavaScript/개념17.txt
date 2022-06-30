@@ -1,0 +1,202 @@
+1. DOM(Document Object Model, 문서 객체 모델)
+- 자바스크립트를 이용하여 웹 문서에 접근하고 제어할 수 있도록 객체를 사용해 웹 문서를 체계적으로 정리하는 방법
+- 자바스크립트는 웹 문서와 그 안에서 사용한 텍스트, 이미지, 표 등의 모든 요소를 각각 다른 객체로 인지하여 처리함
+- 문서 객체 모델: 자바스크립트에서 웹 문서의 객체를 다루는 시스템
+- HTML DOM: HTML 언어로 작성한 웹 문서. XML DOM도 있음
+- 웹 브라우저는 대부분 W3C에서 제공하는 DOM 표준을 따름
+- DOM은 웹 문서를 하나의 객체로 정의함
+- 웹 문서를 이루는 텍스트나 이미지, 표 등의 모든 요소도 각각 객체로 정의함
+
+DOM 트리
+- 웹 문서의 요소를 부모 요소와 자식 요소로 구분함
+- html (root element)
+    - head (element)
+        - meta (element)
+            - charset="utf-8" (attribute)
+        - title (element)
+            - DOM tree 알아보기 (text)
+    - lang="ko" (attribute)
+    - body (element)
+        - h1 (element)
+            - Do it! (text)
+        - img (element)
+            - src="..." (attribute)
+            - alt="..." (attribute)
+
+- 노드(node): 가지가 갈라져 나간 항목
+- 루트(root) 노드: DOM 트리의 시작 부분인 html 노드. 나무 뿌리에 해당
+
+- DOM 구성 기본 원칙
+    - 요소: 모든 HTML 태그는 요소(element)노드이다. 
+    - 텍스트: HTML 태그에서 사용하는 텍스트 내용은 자식 노드인 텍스트(text) 노드이다. 
+    - 속성: HTML 태그에 있는 속성은 자식 노드인 속성(attribute)이다. 
+    - 주석: 주석은 주석(comment) 노드이다. 
+
+
+2. DOM 요소에 접근하고 속성 가져오기
+- 요소: <img> 태그를 사용한 이미지나 <p> 태그를 사용한 텍스트 등 HTML 태그로 웹 문서에 삽입한 모든 대상을 가리킴
+
+- id
+    
+    document.getElementById("heading");
+
+    요소명.getElementById("id명");
+
+- class
+    
+    document.getElementsByClassName("bright");
+
+    요소명.getElementsByClassName("class명");
+
+    - 이 메서드를 사용하면 클래스 이름이 같은 DOM 요소들이 HTMLCollection 객체로 저장됨
+    - HTMLCollection 객체는 배열과 비슷하고 배열처럼 사용 가능하나 배열은 아님
+    
+- 태그 이름
+
+    document.getElementsByTagName("p");
+
+    요소명.getElementsByTagName("태그명");
+
+- 다양
+
+    querySelector(#heading);
+    querySelectorAll(".bright");
+
+    노드.querySelector(선택자);
+    노드.querySelectorAll(선택자 or 태그);
+
+    - DOM 트리의 텍스트, 속성 노드까지 자유롭게 제어
+
+- 내용 수정
+    
+    요소명.innerText = 내용
+    요소명.innerHTML = 내용
+
+    - 웹 요소의 내용 수정
+
+- 속성 수정
+
+    setAtrribute("속성명", "값")
+
+    getAttribute("속성명");
+
+    - 
+
+
+3. DOM의 이벤트 처리하기
+- 웹 문서에서 이벤트가 발생하면 이벤트 처리기(event handler)를 연결
+- HTML 태그와 소스를 분리할 수 있음
+
+직접 연결
+
+함수 이름
+
+객체
+- 프로퍼티
+    - altKey: 이벤트가 발생할 때 Alt를 눌렀는지 여부를 boolean 값으로 반환
+    - ctrlKey: 이벤트가 발생할 때 Ctrl를 눌렀는지 여부를 boolean 값으로 반환
+    - shiftKey: 이벤트가 발생할 때 Shift를 눌렀는지 여부를 boolean 값으로 반환
+    - button: 마우스를 누른 버튼의 키값을 반환
+    - charCode: keypress 이벤트가 발생할 때 어떤 키를 눌렀는지 유니코드값으로 반환
+    - clientX: 이벤트가 발생한 가로 위치
+    - clientY: 이벤트가 발생한 세로 위치
+    - pageX: 현재 문서 기준으로 이벤트가 발생한 가로 위치
+    - pageY: 현재 문서 기준으로 이벤트가 발생한 세로 위치
+    - screenX: 현재 화면 기준으로 이벤트가 발생한 가로 위치
+    - screenY: 현재 화면 기준으로 이벤트가 발생한 세로 위치
+    - target: 이벤트가 최초로 발생한 대상을 반환
+    - timeStamp: 이벤트가 발생한 시간을 반환
+    - type: 발생한 이벤트 이름 반환
+    - which: 키보드와 관련된 이벤트가 발생할 때 키의 유니코드값을 반환
+
+- 메서드
+    - preventDefault(): 이벤트를 취소할 수 있는 경우 취소
+
+addEventListener()
+- 위의 이벤트 처리기는 한 요소에 하나의 이벤트 처리기만 연결할 수 있음
+- addEventListener()와 event 객체를 사용하면 한 요소에 여러 이벤트 처리기를 연결해 실행할 수 있음
+
+    요소.addEventListener(이벤트, 함수, 캡처 여부);
+
+    - 이벤트: 이벤트 유형을 지정. 단, click과 keypress처럼 on을 붙이지 않고 씀
+    - 함수: 이벤트가 발생하면 실행할 명령이나 함수를 지정. 여기에서 함수를 정의할 때는 event 객체를 인수로 받음
+    - 캡처 여부
+        - 이벤트를 캡처하는지 여부를 지정
+        - true: 캡처링. DOM의 부모 노드에서 자식 노드로 전달
+        - false: 버블링. 기본값. DOM의 자식 노드에서 부모 노드로 전달
+
+CSS 속성 접근
+
+    document.getElementById("desc").style.color = "blue";
+
+    document.요소명.style.속성명;
+
+
+
+4. DOM에서 노드 추가삭제
+노드 리스트(node list)
+- DOM에 접근할 때 querySelectorAll() 메서드를 사용하면 노드를 한꺼번에 여러 개 가져올 수 있는데 이때 노드 정보를 여러 개 저장한 것
+- 노드를 여러개 저장한 데이터 형태
+- DOM에서 새로운 요소를 추가할 때 가장 먼저 할 일은 요소 노드를 만드는 것이다. 
+
+DOM 트리를 구성하는 기본 원칙
+- 모든 HTML 태그는 요소(element) 노드이다. 
+- HTML 태그에서 사용하는 텍스트 내용은 자식 노드인 텍스트(text) 노드이다. 
+- HTML 태그에 있는 속성은 자식 노드인 속성(attribute)이다. 
+- 주석은 주석(comment)이다. 
+
+텍스트 노드 추가
+- 요소 노드 만들기
+
+    let newP = document.createElement("p");
+
+    document.createElement(노드명);
+
+- 텍스트 노드 만들기
+
+    let txtNode = document.createTextNode("DOM은 Document Object Model의 줄임말입니다.");
+
+    document.createTextNode(텍스트);
+
+- 자식 노드 연결하기
+
+    newP.appendChild(txtNode);
+    document.getElementById("info").appendChild(newP);
+
+
+    부모노드.appendChild(자식노드);
+
+속성값 있는 노드 추가
+- 요소 노드 만들기
+
+    let newImg = document.createElement("img");
+
+- 속성 노드 만들기
+
+    let srcNode = document.createAttribute("src");
+    let altNode = document.createAttribute("alt");
+    srcNode.value = "images/dom.jpg";
+    altNode.value = "돔 트리 예제 이미지"; 
+
+
+    document.createAttribute(속성명);
+
+- 속성 노드 연결하기
+
+    newImg.setAttributeNode(srcNode);
+
+    요소명.setAttributeNode(속성노드);
+
+- 자식 노드 연결하기
+
+    document.getElementById("info").appendChild(newImg);
+
+노드 삭제
+- 부모 노드에서 자식 노드를 삭제해야 함
+- 자식 노드를 알고 싶으면 childNode 프로퍼티 사용
+
+    li.parentNode.removeChild(li);
+    
+    노드.parentNode;
+    부모노드.removeChild(자식노드);
+

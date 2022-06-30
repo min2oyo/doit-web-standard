@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>당첨자 발표</title>
+  <style>
+    h1 {
+      border: 1px solid black;
+      padding: 10px;
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>당첨자 발표</h1>
+  <script>
+    let seed = 2;  // 전체 응모자 수
+    let winner = 2; // 당첨자 수
+    // let seed = parseInt(prompt("전체 응모자 수 : ", ""));
+    // let winner = parseInt(prompt("당첨자 수 : ", "1"));
+    let numbers = new Array();  //당첨자를 저장할 배열
+
+    if (winner > seed) {
+      alert("다시 입력하세요");
+    } else {
+      document.write("전체 응모자 수 : " + seed + "명 <br>");
+      document.write("당첨자: ");
+      for (let i = 0; i < winner; i++) {
+        let picked = Math.floor((Math.random() * seed) + 1);
+        numbers[i] = picked;  //당첨자를 배열에 저장
+        for (let j = 0; j < numbers.length - 1; j++) {  //중복검사 for문
+          if (picked === numbers[j]) {
+            i--;    //다시 당첨자를 뽑을 수 있게 설정
+            break;  //if조건에 맞으면 바로 나올수 있게 설정
+          }
+        }
+      }
+      document.write(numbers.join("번, ") + "번");
+    }
+  </script>
+</body>
+
+</html>

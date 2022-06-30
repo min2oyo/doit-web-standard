@@ -1,0 +1,193 @@
+1. 변형
+- 트랜스폼(transform): 물체의 크기나 형태의 위치를 바꿈
+
+이동
+
+    .photo {transform: translate(50px, 100px);}
+
+    transform: translate(tx, ty);   //2차원
+    
+    transform: translate3d(tx, ty, tz); //3차원
+    
+    transform: translateX(tx);
+    
+    transform: translateY(ty);
+    
+    transform: translateZ(tz);
+
+확대/축소
+
+    transform: scale(sx, sy);
+    
+    transform: scale3d(sx, sy, sz);
+    
+    transform: scale(sx);
+    
+    transform: scale(sy);
+    
+    transform: scale(sz);
+
+    - 1보다 크면 확대되고 1보다 작으면 축소
+
+회전
+
+    2차원
+
+        transform: rotate(각도);
+
+    3차원
+    
+        transform: rotate(rx, ry, 각도);
+
+        transform: rotate3d(rx, ry, rz, 각도);
+
+        transform: rotateX(각도);
+        
+        transform: rotateY(각도);
+        
+        transform: rotateZ(각도);
+
+    perspective
+    - 원근감
+    - 3차원 변형에 사용
+    - 원래 있던 위치에서 사용자가 있는 방향으로 잡아당기거나 밀어내는 원근감 표현
+    - 값이 클수록 사용자로부터 멀어짐
+    - 적용은 부모 요소에 정의(변형하는 요소x)
+    - 0보다 커야 함
+    - 픽셀크기로 나타냄
+
+왜곡
+
+    transform: skew(x각도, y각도);
+
+    transform: skewX(x각도);
+
+    transform: skewY(y각도);
+
+입체적으로 보일 수 있도록 깊이값을 지정
+
+    perspective: 200px;
+
+    - 부모 요소에 사용
+
+
+
+2. 트랜지션
+- transition
+- 스타일 속성 변경(웹 요소의 배경색 변경, 도형의 테두리를 사각형에서 원형으로 변경 등)
+- 익스플로러10 이상, 최신 브라우저에서 모두 지원
+
+속성
+    대상 지정
+
+        transition-property: all;   //모든 속성에 적용
+        transition-property: background-color;  //배경색에 적용
+        transition-property: width, height; //너비, 높이에 적용
+
+        transition-property: all | none | <속성 이름>;
+
+        - all: 기본값. 모든 속성에 트랜지션 적용
+        - none: 트랜지션을 하는 동안 아무 속성도 바뀌지 않음
+        - 속성 이름: 적용할 속성 지정. 쉼표(,)로 구분
+    
+    시간 지정
+
+        transition-duration: 0 | 2s;
+
+        transition-duration: <시간>;
+
+        - 0: 기본값
+        - 지정할 수 있는 시간 단위: 초(second), 밀리초(millisecond)
+        - 대상 속성이 여러 개라면 진행 시간도 쉼표(,)로 구분
+        - 대상과 시간 지정 개수가 다를 경우 속성 순서대로 시간값을 반복함
+        - 음수값은 0으로 간주
+    
+    속도 지정
+    
+        transition-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n, n, n, n);
+
+        - linear: 똑같은 속도
+        - ease: 기본값. 점점 엄청 빨라지다가 엄청 천천히 끝남
+        - ease-in: 시작을 느리게
+        - ease-out: 끝을 느리게
+        - ease-in-out: 시작, 끝을 느리게
+        - cubic-bezier(n, n, n, n): 베지에 함수를 정의해서 사용. n은 0~1사이만 사용
+
+        - 베지에 곡선은 n개의 점을 이용해 (n-1)차 곡선을 만들어내는 함수
+    
+    지연시간 지정
+    
+        transition-delay: 0 | <시간>;
+
+        - 0: 기본값
+        - 사용할 수 있는 값은 초(s)나 밀리초(ms)
+    
+    모두
+    
+        transition: all | <아무거나>;
+
+        - all: 기본값
+
+        - 대상이 전체이고 각가의 진행시간이 같을 때 사용
+        - 순서 상관 없음. 시간이 두 개이면 앞은 시간, 뒤는 지연시간
+
+
+
+3. 애니메이션
+
+속성
+    - 바뀌는 지점 지정
+
+        @keyframe <이름> {<선택자> {<스타일>}}
+
+        - 중간 지점을 추가하려면 0%, 50%, 100%로 설정
+        - 시작, 끝만 사용하려면 from, to 사용
+
+    - 이름 지정
+
+        animation-name: <키프레임 이름> | none;
+
+    - 실행 시간 지정
+
+        animation-duration: <시간>;
+
+        - 무조건 지정
+        - 초(s)나 밀리초(ms) 사용
+        - 기본값 0, 지정하지 않으면 실행이 안 됨
+
+    - 종료 후 처음 or 역방향 시작 지정
+
+        animation-direction: normal | reverse | alternate | alternate-reverse;
+
+        - normal: 기본값. from에서 to로 진행
+        - reverse: to에서 from으로 진행
+        - alternate: 홀수 번째는 normal로, 짝수 번째는 reverse로 진행
+        - alternate-reverse: 홀수 번째는 reverse로, 짝수 번째는 normal로 진행
+
+    - 반복 횟수 지정
+
+        animation-iteration-count: <숫자> | infinite;
+
+        - 숫자: 반복 횟수
+        - infinite: 무한 반복
+
+    - 키프레임의 속도 지정
+
+        animation-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n, n, n, n);
+
+        - linear: 똑같은 속도
+        - ease: 점점 빨라지다가 천천히 끝남. 기본값
+        - ease-in: 느리게 시작
+        - ease-out: 느리게 끝남
+        - ease-in-out: 느리게 시작하고 느리게 끝남
+        - cubic-bezier(n, n, n, n): 베지에 함수를 정의해서 사용. n은 0~1사이만 사용
+
+    - 시작 시간 지정
+
+        animation-delay: ;
+
+    - 모두
+
+        .box {animation: moving 3s alternate infinite ease-in;}
+
+        - duration(시간)은 무조건 지정

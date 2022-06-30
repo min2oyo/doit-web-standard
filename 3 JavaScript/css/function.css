@@ -1,0 +1,35 @@
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 10px auto;
+	width: 500px;
+}
+
+li {
+	border: 1px solid #ccc;
+	display: inline-block;
+	width: 120px;
+	padding: 10px 15px;
+	font-size: 16px;
+	text-align: center;
+}
+
+#result {
+	border: 2px solid #ccc;
+	border-radius: 15px;
+	width: 500px;
+	height: 300px;
+	margin: 30px auto;
+}
+
+a:link,
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+p {
+	width: 80%;
+	padding: 10px;
+	line-height: 2em;
+}

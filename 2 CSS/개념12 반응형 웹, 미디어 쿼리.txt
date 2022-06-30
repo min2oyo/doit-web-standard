@@ -1,0 +1,413 @@
+1. 반응형 웹(Responsive web disign)
+- CSS3를 지원하는 모던 브라우저에서만 사용가능
+
+뷰포트(viewport) 지정
+- 실제 웹 문서 내용이 화면에 나타나는 영역
+- 웹키트(webkit)를 기반으로 한 모바일 브라우저의 기본 뷰포트 너비는 980px임
+
+    <meta name="viewport" content="속성1=값1, 속성2=값2, ...">
+
+    속성
+    - width
+        - 뷰포트 넓이
+        - device-width 또는 크기
+        - 브라우저 기본값
+    - height
+        - 뷰포트 높이
+        - device-height 또는 크기
+        - 브라우저 기본값
+    - user-scalable
+        - 확대/축소 가능 여부
+        - yes 또는 no (yes는 1로, device-width와 device-height 값은 10으로 간주)
+        - 기본값 yes
+    - initial-scale
+        - 초기 확대/축소 값
+        - 사용 가능한 값: 1 ~ 10
+        - 기본값 1
+
+뷰포트 단위
+    - vw(viewport width): 1vw는 뷰포트 너비의 1%와 같다
+    - vh(viewport height): 1vh는 뷰포트 높이의 1%와 같다
+    - vmin(viewport minimun): 뷰포트의 너비와 높이 중에서 작은 값의 1%와 같다
+    - vmax(viewport maximun): 뷰포트의 너비와 높이 중에서 큰 값의 1%와 같다
+
+
+
+2. 미디어 쿼리(media queries)
+- 사이트에 접속하는 장치에 따라 특정한 CSS 스타일을 사용하는 방법
+
+구문
+
+    @media screen and (min-width: 768px) and (max-width: 1439px) {}
+    
+    @media [only | not] 미디어 유형 [and 조건] * [and 조건]
+
+    - only: 미디어 쿼리를 지원하지 않는 웹 브라우저에서는 미디어 쿼리를 무시하고 실행하지 않음
+    - not: not 다음에 지정하는 미디어 유형을 제외 함. not tv라고 지정하면 TV를 제외한 미디어 유형에만 적용 됨
+    - and: 조건을 여러 개 연결해서 추가 가능
+    
+    - 조건이 같은 미디어 유형이 여러 개이면 쉽표(,)로 구분
+    - <style></style> 사이에 사용하며 대소문자를 구별하지 않음
+    
+    유형
+
+        @media screen {}    //화면용 스타일
+        @media print {}     //인쇄용 스타일
+            
+        - all: 모든 미디어 유형에서 사용할 CSS를 정의
+        - print: 인쇄 장치에서 사용할 CSS를 정의
+        - screen: 컴퓨터 스크린에서 사용할 CSS를 정의. 스마트폰도 포함
+        - tv: 음성과 영상이 동시에 출력되는 TV에서 사용할 CSS를 정의
+        - aural: 음성 합성 장치(주로 화면을 읽어 소리로 출력해 주는 장치)에서 사용할 CSS를 정의
+        - braille: 점자 표시 장치에서 사용할 CSS를 정의
+        - handheld: 패드(pad)처럼 손에 들고 다니는 장치를 위한 CSS를 정의
+        - projection: 프로젝터를 위한 CSS를 정의
+        - tty: 디스플레이 기능이 제한된 장치에 맞는 CSS를 정의. 이런 장치에서는 픽셀(px) 단위를 사용할수 없음
+        - embossed: 점자 프린터에서 사용할 CSS를 정의
+    
+    웹 문서
+    
+        @media screen and (min-width: 1440px) {}
+
+        - width, height: 가로 너비, 세로 높이를 지정
+        - min-width, min-height: 최소 너비, 최소 높이를 지정
+        - max-width, max-height: 최대 너비, 최대 높이 지정
+        
+        - screen이 아닌 미디어에서는 스크롤을 포함한 전체 문서를 height로 지정
+        - print는 한 페이지 높이를 기준으로 함
+
+    단말기
+
+        @media screen and (min-device-width: 375px) and (min-device-height: 812px) {}
+
+        - width, height: 가로 너비, 세로 높이를 지정
+        - min-width, min-height: 최소 너비, 최소 높이를 지정
+        - max-width, max-height: 최대 너비, 최대 높이 지정        
+
+    회전
+
+        @media screen and (min-device-width: 812px) and (orientation: landscape) {}
+
+        - orientation: landscape: 기본값. 단말기의 가로 모드
+        - orientation: portrait: 단말기의 세로 모드
+    
+    중단점
+
+        스마트폰
+            - portrait: 320px, landscape: 480px
+        태블릿
+            - portrait: 768px 이상, landscape: 1024px 이상
+        데스크톱
+            - 화면크기가 1024px 이상
+
+적용
+    외부 CSS파일 연결
+
+        <link rel="stylesheet" media="print" href="css/print.css">
+
+        <link rel="stylesheet" media="미디어 쿼리 조건" href="css 파일 경로">
+
+        - <head></head>에 사용
+        - 속성의 순서는 상관없음
+        - css파일이 많고 규모가 큰 사이트이면 link를 주로 사용
+
+        @import url("css/tablet.css") only screen and (min-width: 321px) and (max-width: 768px);
+
+        @import url(css 파일 경로) 미디어 쿼리 조건
+
+        - <style></style>에 사용
+        - 익스플로러의 경우 자바스크립트를 먼저 내려받은 후에 @import 문에 있는 CSS를 다운 받음. 오류가 날 수 있음
+
+    웹 문서에 직접 정의
+
+        <style media="screen and (max-width: 320px)">
+            body {
+                background-color: orange;
+            }
+        </style>
+
+        <style media="<조건>"> {
+            <스타일 규칙>
+        }
+        </style>
+
+        <style>
+            @media screen and (max-width: 320px) {
+                body {
+                    background-color: orange;
+                }
+            }
+        </style>
+
+        <style>
+            @media <조건> {
+                <스타일 규칙>
+            }
+        </style>
+    
+    미디어 쿼리 색상 - 개발자 도구
+    - 파란색: 최대 너비(max-width)를 기준으로 중단점을 나눔
+    - 초록색: 최소 너비와 최대 너비를 이용해 특정 범위를 기준으로 중단점을 나눔
+    - 주황색: 최소 너비(min-width)를 기준으로 중단점을 나눔
+
+
+
+3. 그리드 레이아웃
+- 웹 사이트를 여러 개의 칼럼(Column)으로 나눈 후 메뉴나 본문, 이미지 등의 웹 요소를 화면에 맞게 배치하는 것
+- 화면을 규치적으로 배열
+- 레이아웃을 일관성 있게 유지
+
+특징
+- 시각적으로 안정된 디자인
+    - 책, 신문 등 여러 시각 매체에서 대부분 사용
+    - 인간의 눈은 한 화면을 여러 개의 칼럼으로 구성해서 밑으로 늘어뜨리는 그리드 레이아웃에 익숙함
+- 업데이트가 편한 웹 디자인 구성
+    - 실제 내용을 넣지 않은 상태에서도 사이트 레이아웃을 미리 만들어 볼 수 있음
+    - 사이트, 콘텐츠 영역의 너비, 각 요소의 위치 등 사이트 구조를 먼저 만들어 놓고 나중에 내용을 채워 넣을 수 있음
+- 요소를 자유롭게 배치 가능
+    - 블록 레벨 요소 상관없이 한 줄에 여러 요소를 배치할 수 있음
+    - 중요한 내용은 좀 더 넓은 공간에 두어 사용자에게 잘 보이게 할 수 있음
+
+만드는 방법
+- CSS의 float 속성 사용
+- 플렉서블 박스 레이아웃 적용
+- CSS 그리드 레이아웃 적용
+
+
+플렉서블 박스 레이아웃(flexible box layout, flex box layout)
+- '주축'이란 개념이 있어 수평이나 수직 중 하나를 기준으로 해서 요소를 배치
+- 그리드 레이아웃을 기본으로 하고 각 박스를 원하는 위치에 따라 배치
+- 여유 공간이 생길 경우 너비가 높이를 적절하게 늘이거나 줄일 수 있음
+- 수평이나 수직 방향 중 한쪽을 주축으로 정하고 박스를 배치
+- 주축을 수평으로 정하면 박스를 왼쪽에서부터 오른쪽으로 순서대로 배치하는데, 화면 너비를 넘어가면 수직으로 이동해서 다시 순서대로 배치함
+- IE11는 부분적으로만 지원. 사용시 caniuse.com - 'flexible box' 검색 - 하단의 'known issues'란 참고
+
+CSS 그리드 레이아웃(CSS grid layout)
+- '주축' 상관 없이 수평이나 수직 어느 방향이든 배치
+- 레고 블록을 끼워 맞추듯 요소를 배치
+- 대부분 모던 브라우저에서 사용
+- https://www.w3.org/TR/css-grid-1/ 참고
+
+
+
+4. 플렉스 박스 레이아웃(flex box layout)
+- 비교적 최근에 등장한 개념
+- 기존의 CSS 속성 외에 새로 공부해야 할 속성이 있음
+- 그리드 레이아웃을 기본으로 해서 새로 등장한 개념임
+- 플렉스 항목이 여러 개 있는데 일괄적으로 한꺼번에 배치할 수도 있고, 주축이나 교차축 기준으로 다양하게 배치할 수 있음
+- 배치 방법과 관련된 속성이 많음
+- 플렉스 박스 레이아웃을 만들려면 먼저 웹 콘텐츠를 플렉스 컨테이너로 묶어 주어야 함
+- 특정 요소가 플렉스 컨테이너로 동작하려면 display 속성을 이용해 이 부분에 플렉스 박스 레이아웃을 적용하겠다고 지정해야 함
+- 모던 브라우저에서는 모두 지원, 구 버전에서는 거의 대부분 지원
+- 그동안 CSS를 사용해서 화면 요소를 세로 방향으로 중앙에 배치하는 것이 까다로웠음. 플렉스는 간단함
+
+구성
+    플렉스 컨테이너(부모 박스)
+    - 플렉스 박스 레이아웃을 적용할 대상을 묶는 요소
+
+    플렉스 항목(자식 박스)
+    - 플렉스 박스 레이아웃을 적용할 작은 박스들
+
+    주축(main axis)
+    - 플렉스 컨테이너 안에서 플렉스 항목을 배치하는 기본 방향
+    - 기본적으로 왼쪽에서 오른쪽이며 수직 방향으로 배치
+    - 주축 시작점: 플렉스 항목의 배치가 시작되는 위치
+    - 주축 끝점: 플렉스 항목의 배치가 끝나는 위치
+
+    교차축(cross axis)
+    - 주축과 교차하는 방향
+    - 기본적으로 위에서 아래로 배치
+    - 교차축 시작점: 플렉스 항목의 배치가 시작되는 위치
+    - 교차축 끝점: 플렉스 항목의 배치가 끝나는 위치
+
+배치 속성
+    주축 방향
+
+        justify-content
+    
+    교차축 방향
+
+        align-items
+
+    교차축에 있는 개별 항목
+
+        align-self
+
+    교차축에서 여러 줄로 표시된 항목
+
+        align-content
+
+플렉스 컨테이너 지정
+
+    display: flex | inline-flex;
+
+    - flex: 컨테이너 안의 플렉스 항목을 블록 레벨 요소로 배치
+    - inline-flex: 컨테이너 안의 플렉스 항목을 인라인 레벨 요소로 배치
+
+플렉스 방향 지정
+
+    flex-direction: row | row-reverse | column | column-reverse;
+
+    - row: 주축을 가로로 지정하고 왼쪽에서 오른쪽으로 배치. 기본값
+    - row-reverse: 주축을 가로로 지정하고 반대로 오른족에서 왼족으로 배치
+    - column: 주축을 세로로 지정하고 위쪽에서 아래쪽으로 배치
+    - column-reverse: 주축을 세로로 지정하고 아래쪽에서 위쪽으로 배치
+
+줄 바꿈 지정
+
+    flex-wrap: nowrap | wrap | wrap-reverse;
+
+    - nowrap: 기본값. 플렉스 항목을 한 줄에 표시
+    - wrap: 플렉스 항목을 여러 줄에 표시
+    - wrap-reverse: 플렉스 항목을 여러 줄에 표시. 시작점과 끝점이 바뀜
+
+배치 방향, 줄 바꿈 지정
+
+    flex-flow: row wrap | row nowrap;
+
+    - row wrap: 기본값. 왼쪽에서 오른쪽. 여러 줄
+    - row nowrap: 왼쪽에서 오른쪽. 한 줄 
+
+주축 정렬 지정
+
+    justify-content: flex-start | flex-end | center | space-between | space-around;
+
+    - flex-start: 주축의 시작점에 맞춰 배치
+    - flex-end: 주축의 끝점에 맞춰 배치
+    - center: 주축의 중아에 맞춰 배치
+    - space-between: 첫 번째 항목과 끝 항목을 주축의 시작점과 끝점에 배치한 후 나머지 항목은 그 사이에 같은 간격으로 배치
+    - space-around: 모든 항목을 주축에 같은 간격으로 배치
+
+교차축 정렬
+
+    align-items: flex-start | flex-end | center | baseline | stretch;
+
+    - 한 줄일 때 사용
+    - flex-start: 교차축의 시작점에 맞춰 배치
+    - flex-end: 교차축의 끝점에 맞춰 배치
+    - center: 교차축의 중앙에 배치
+    - baseline: 교차축의 문자 기준선에 맞춰 배치
+    - stretch: 플렉스 항목을 늘려 교차축에 가득 차게 배치
+
+특정 항목만 정렬
+
+    align-self: flex-start | flex-end | center | baseline | stretch;
+
+    - flex-start: 교차축의 시작점에 맞춰 배치
+    - flex-end: 교차축의 끝점에 맞춰 배치
+    - center: 교차축의 중앙에 배치
+    - baseline: 교차축의 문자 기준선에 맞춰 배치
+    - stretch: 플렉스 항목을 늘려 교차축에 가득 차게 배치
+
+여러 줄 교차축 정렬
+
+    align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+
+    - flex-start: 교차축의 시작점에 맞춰 배치
+    - flex-end: 교차축의 끝점에 맞춰 배치
+    - center: 교차축의 중앙에 맞춰 배치
+    - space-between: 첫 번째 항목과 끝 항목을 교차축의 시작점과 끝점에 맞추고 나머지 항목은 그 사이에 같은 간격으로 배치
+    - space-around: 모든 항목을 교차축에 같은 간격으로 배치
+    - stretch: 플렉스 항목을 늘려서 교차축에 가득 차게 배치
+
+너비 조절(한 눈에 정리하기에만 있음)
+
+    flex: 1~3 | auto | initial;
+
+    - 플렉스 항목의 너비를 줄이거나 늘림
+
+항상 중앙에 표시
+
+    display: flex;
+    justify-content: center;
+    align-itmes: center;
+    min-height: 100vh;
+
+
+
+5. CSS 그리드 레이아웃
+- 가장 최근에 제안된 그리드 레이아웃 제작 방법
+- 웹 디자인 레이아웃을 만들 때 그리드 레이아웃은 아주 중요함
+- 소스를 최대한 간단하게 유지하면서 대부분의 기기에 대응할 수 있음
+- 그리드 항목을 배치할 때 가로와 세로 모두 사용
+- 플렉스 항목은 1차원, CSS 그리드 레이아웃은 2차원
+- 줄(row)과 칼럼(column)으로 웹 화면을 구성
+- 줄과 줄 사이, 칼럼과 칼럼 사이의 간격을 지정해서 원하는 형태의 레이아웃을 만듦
+
+컨테이너 지정
+
+    display: grid | inline-grid;
+
+    - grid: 컨테이너 안의 항목을 블록 레벨 요소로 배치
+    - inline-grid: 컨테이너 안의 항목을 인라인 레벨 요소로 배치
+
+칼럼과 줄 지정
+
+    grid-template-columns: 100px [100px ...];
+    grid-template-rows: 100px [100px ...];
+
+상대적인 크기 지정
+
+    grid-template-columns: 2fr 1fr 2fr;
+
+값이 반복될 때 줄여서 표현
+
+    grid-template-columns: repeat(3, 1fr);
+
+최소값, 최대값을 지정
+
+    grid-template-columns: minmax(100px, auto);
+
+자동으로 칼럼 개수 조절
+
+    grid-template-columns: minmax(auto-fit | auto-fill, 200px);
+
+    - auto-fit: 여백 없이 채움
+    - auto-fill: 여백을 남김
+
+그리드 항목 간격 지정
+
+    grid[-column | row]-gap: 20px;
+
+    - 속성 순서는 row, column
+
+그리드 정렬
+- 플렉스 박스처럼 justify-content, align-content 사용
+
+그리드 라인
+
+    grid-cloumn-start: 1;
+
+    - 칼럼 시작 라인 번호
+
+    grid-column-end: 4;
+
+    - 칼럼 마지막 라인 번호
+
+    grid-column: 1/4;
+
+    - 칼럼 시작 번호와 칼럼 끝 번호 사이에 슬래시(/)를 넣어 사용
+
+    grid-row-start: 2;
+
+    - 줄 시작 라인 번호
+
+    grid-row-end: 4;
+
+    - 줄 마지막 라인 번호
+
+    grid-row: 2/4;
+
+    - 줄 시작 번호와 줄 끝 번호 사이에 슬래시(/)를 넣어 사용
+
+템플릿 영역
+
+    grid-template-areas:
+        "box1 box1 box1"
+        "box2 box3 box3"
+        "box2 . box4";
+
+    grid-area: box1;
+    grid-area: box2;
+    grid-area: box3;
+    grid-area: box4;

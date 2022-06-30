@@ -1,0 +1,45 @@
+<!-- nodeList.html -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web Programming</title>
+	<style>
+		p:hover {
+			cursor: pointer;
+		}
+	</style>
+	<link rel="stylesheet" href="css/nodelist.css">
+</head>
+
+<body>
+	<h1>Web Programming</h1>
+	<ul id="itemList">
+		<li>HTML</li>
+		<li>CSS</li>
+		<li>Javascript</li>
+	</ul>
+	<p>console 창에 'document.querySelectorAll("li")' 입력</p>
+	<p>console 창에 'document.querySelectorAll("li")[1]' 입력</p>
+	<p>console 창에 'document.querySelectorAll("li")[1].parentNode' 입력</p>
+	<hr>
+	<p></p>
+
+	<script>
+		let p = document.querySelectorAll("p");
+
+		p[0].onclick = () => { p[3].innerText = "NodeList(3) [li, li, li]"; }
+		p[1].onclick = () => { p[3].innerText = "<li>CSS</li>"; }
+		p[2].onclick = () => {
+			p[3].innerText = "<ul id=\"itemList\">" + "\n<li>HTML</li>" + "\n<li>CSS</li>" + "\n<li>Javascript</li>" + "\n</ul> ";
+		}
+
+		(function () {
+			document.querySelectorAll("hr")[0].style.display = "block";
+		}());
+	</script>
+</body>
+
+</html>

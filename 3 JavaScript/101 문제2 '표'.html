@@ -1,0 +1,69 @@
+<!-- sol-1.html -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>연습문제 2</title>
+  <style>
+    form {
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      width: 30px;
+      height: 20px;
+      text-align: center;
+    }
+
+    button {
+      margin-left: 10px;
+    }
+
+    table {
+      width: 300px;
+    }
+
+    table,
+    td {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+    }
+
+    td {
+      width: 500px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" id="rCount" value="1">행
+  <input type="text" id="cCount" value="1">열
+  <button onclick="drawTable()">작성</button>
+  <div id="contents"></div>
+
+  <script>
+    function drawTable() {
+      let rCount = document.querySelector("#rCount").value;
+      let cCount = document.querySelector("#cCount").value;
+
+      let newTable = document.createElement("table");
+      for (i = 0; i < rCount; i++) {
+        let newRow = document.createElement("tr");
+        for (j = 0; j < cCount; j++) {
+          let newCell = document.createElement("td");
+          let cellText = document.createTextNode(i + ", " + j);
+          newCell.appendChild(cellText);
+          newRow.appendChild(newCell);
+        }
+        newTable.appendChild(newRow);
+      }
+      let contents = document.querySelector("#contents");
+      contents.appendChild(newTable);
+    }
+  </script>
+</body>
+
+</html>
